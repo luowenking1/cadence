@@ -171,8 +171,9 @@ func (f *ReplicationTaskFetcherImpl) Start() {
 	if !atomic.CompareAndSwapInt32(&f.status, common.DaemonStatusInitialized, common.DaemonStatusStarted) {
 		return
 	}
-
+	f.logger.Debug("Fetcher starting", tag.Bool(f.config == nil))
 	for i := 0; i < f.config.ReplicationTaskFetcherParallelism(); i++ {
+		f.logger.Debug("Fetcher coroutine starting", tag.ShardID(i))
 		go f.fetchTasks()
 	}
 	f.logger.Info("Replication task fetcher started.", tag.Counter(f.config.ReplicationTaskFetcherParallelism()))
@@ -190,6 +191,7 @@ func (f *ReplicationTaskFetcherImpl) Stop() {
 
 // fetchTasks collects getReplicationTasks request from shards and send out aggregated request to source frontend.
 func (f *ReplicationTaskFetcherImpl) fetchTasks() {
+	f.logger.Debug("Starting fetch task")
 	timer := time.NewTimer(backoff.JitDuration(
 		f.config.ReplicationTaskFetcherAggregationInterval(),
 		f.config.ReplicationTaskFetcherTimerJitterCoefficient(),
