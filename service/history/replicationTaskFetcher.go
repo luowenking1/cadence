@@ -121,7 +121,7 @@ func (f *ReplicationTaskFetchersImpl) Start() {
 	if !atomic.CompareAndSwapInt32(&f.status, common.DaemonStatusInitialized, common.DaemonStatusStarted) {
 		return
 	}
-
+	f.logger.Debug("Replication task fetchers starting.")
 	for _, fetcher := range f.fetchers {
 		fetcher.Start()
 	}
