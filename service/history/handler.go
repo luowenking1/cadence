@@ -113,14 +113,14 @@ func (h *Handler) Start() {
 		}
 	}
 
-	h.replicationTaskFetchers = NewReplicationTaskFetchers(
-		h.GetLogger(),
-		h.config,
-		h.GetClusterMetadata().GetReplicationConsumerConfig(),
-		h.GetClusterMetadata(),
-		h.GetClientBean())
-
-	h.replicationTaskFetchers.Start()
+	//h.replicationTaskFetchers = NewReplicationTaskFetchers(
+	//	h.GetLogger(),
+	//	h.config,
+	//	h.GetClusterMetadata().GetReplicationConsumerConfig(),
+	//	h.GetClusterMetadata(),
+	//	h.GetClientBean())
+	//
+	//h.replicationTaskFetchers.Start()
 
 	h.controller = newShardController(
 		h.Resource,
@@ -137,7 +137,7 @@ func (h *Handler) Start() {
 
 // Stop stops the handler
 func (h *Handler) Stop() {
-	h.replicationTaskFetchers.Stop()
+	//h.replicationTaskFetchers.Stop()
 	h.controller.Stop()
 	h.historyEventNotifier.Stop()
 }

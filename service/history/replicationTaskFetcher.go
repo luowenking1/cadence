@@ -122,9 +122,9 @@ func (f *ReplicationTaskFetchersImpl) Start() {
 		return
 	}
 	f.logger.Debug("Replication task fetchers starting.")
-	//for _, fetcher := range f.fetchers {
-	//	fetcher.Start()
-	//}
+	for _, fetcher := range f.fetchers {
+		fetcher.Start()
+	}
 	f.logger.Info("Replication task fetchers started.")
 }
 
