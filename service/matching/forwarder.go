@@ -130,9 +130,9 @@ func (fwdr *Forwarder) ForwardTask(ctx context.Context, task *internalTask) erro
 		return errNoParent
 	}
 
-	if !fwdr.limiter.Allow() {
-		return errForwarderSlowDown
-	}
+	//if !fwdr.limiter.Allow() {
+	//	return errForwarderSlowDown
+	//}
 
 	var err error
 
